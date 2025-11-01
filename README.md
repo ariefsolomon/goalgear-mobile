@@ -13,11 +13,27 @@ Contoh dalam kode saya:
 ```menu.dart
 Widget build(BuildContext context) {
     return Scaffold(
+
         appBar: AppBar(
-        ...
+            title: const Text(
+                'GoalGear Mobile',
+                style: TextStyle(
+                    color: Colors.white, 
+                    fontWeight: FontWeight.bold
+                ),
+            ),
+            backgroundColor: Theme.of(context).colorScheme.primary,
         ),
+
         body: Padding(
-        ...
+            padding: const EdgeInsets.all(16.0),
+            child: GridView.count(
+                crossAxisCount: 3,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                shrinkWrap: true,
+                children: items.map((item) => ItemCard(item)).toList(),
+            ),
         ),
     );
 }
@@ -25,6 +41,6 @@ Widget build(BuildContext context) {
 
 `Scaffold` adalah parent dari `AppBar` dan `body`.
 
-Di dalam `body`, ada `GridView`, dan di dalam setiap item `GridView` terdapat `Material` → `InkWell` → `Container` → `Column` → `Icon`/`Text`.
+Di dalam `body`, ada `GridView`, dan di dalam setiap item `GridView` terdapat `Material` -> `InkWell` -> `Container` -> `Column` -> `Icon`/`Text`.
 
 Ketika parent berubah, widget anak di bawahnya bisa ikut diperbarui atau dirender ulang sesuai kebutuhan UI.
