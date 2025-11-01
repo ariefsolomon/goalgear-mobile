@@ -79,3 +79,36 @@ Ketika parent berubah, widget anak di bawahnya bisa ikut diperbarui atau dirende
 | `Icon` | Menampilkan ikon. |
 | `Text` | Menampilkan teks. |
 | `ScackBar` | Menampilkan notifikasi di bawah layar saat tombol ditekan. |
+
+## Apa fungsi dari widget `MaterialApp`? Mengapa widget ini sering digunakan sebagai widget root?
+
+`MaterialApp` adalah widget wrapper utama yang menyediakan konfigurasi dasar dari keseluruhan tampilan aplikasi. Jadi, semua halaman, navigasi, tema, dan elemen UI lainnya berada di bawah `MaterialApp`.
+
+```main.dart
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'GoalGear Mobile',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.blue,
+        ).copyWith(secondary: Colors.greenAccent[400]),
+        useMaterial3: true,
+      ),
+      home: MyHomePage(),
+    );
+  }
+}
+```
+
+Widget ini mengatur banyak hal, seperti:
+- `title`: judul aplikasi
+- `theme` dan `ThemeData` mengatur hal-hal seperti:
+	- `primarySwatch: Colors.blue` mengatur warna utama aplikasi (AppBar, tombol utama, dsb). 
+	- `.copyWith(secondary: Colors.greenAccent[400])` untuk menambahkan warna sekunder.
+	- `useMaterial3` diatur `true` untuk mengaktifkan Material Design 3 (MD3), versi desain modern dari Google.
+- `home` mengatur halaman utama di dengan kelas `MyHomePage`.
+- `routes` dipakai saat aplikasi memiliki beberapa halaman untuk mengatur rute masing-masing.
