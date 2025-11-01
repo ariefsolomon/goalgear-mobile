@@ -21,6 +21,7 @@ Widget build(BuildContext context) {
         ),
     );
 }
+```
 
 `Scaffold` adalah parent dari `AppBar` dan `body`.
 
