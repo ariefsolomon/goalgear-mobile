@@ -112,7 +112,14 @@ Widget ini mengatur banyak hal, seperti:
 - `home` mengatur halaman utama di dengan kelas `MyHomePage`.
 - `routes` dipakai saat aplikasi memiliki beberapa halaman untuk mengatur rute masing-masing.
 
-`MaterialApp` sering digunakan sebagai widget root karena: 
+Berdasarkan hal tersebut, `MaterialApp` sering digunakan sebagai widget root karena: 
 1. Menjadi titik utama dari struktur aplikasi material based.
 2. Menjamin semua widget turunan dapat menggunakan tema dan komponen.
 3. Menjaga konsistensi tampilan di seluruh widget dan halaman.
+
+## Perbedaan antara `StatelessWidget` dengan `StatefulWidget`
+
+| Type | What | When |
+|------|------|------|
+| `StatelessWidget` | Widget yang tidak memiliki state (keadaan tertentu). | Ketika tampilan tidak perlu pembaharuan selama user berinteraksi dengan material yang ada di dalam halaman atau hanya menampilkan data statis. |
+| `StatefulWidget` | Widget yang memiliki state, bisa berubah selama aplikasi berjalan. | Ada perubahan pada halaman, misalnya ketika user input data dengan form dan halaman perlu diperbaharui setelahnya untuk menampilkan hasilnya. |
