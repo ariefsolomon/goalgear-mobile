@@ -35,6 +35,7 @@ Widget build(BuildContext context) {
                 children: items.map((item) => ItemCard(item)).toList(),
             ),
         ),
+        
     );
 }
 ```
