@@ -11,14 +11,14 @@ Widget adalah elemen visual berupa teks, tombol, icon, layout, dsb. Suatu widget
 Contoh dalam kode saya:
 
 ```
-  Widget build(BuildContext context) {
+Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+        appBar: AppBar(
         ...
-      ),
-      body: Padding(
+        ),
+        body: Padding(
         ...
-      ),
+        ),
     );
-  }
+}
 ```
