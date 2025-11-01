@@ -4,9 +4,7 @@
 
 ## Apa itu widget tree pada Flutter? Bagaimana hubungan parent-child antar widget?
 
-Widget tree digunakan untuk menyusun tampilan aplikasi yang dibangun menggunakan Flutter.
-
-Widget adalah elemen visual berupa teks, tombol, icon, layout, dsb. Suatu widget dapat menjadi parent yang memiliki beberapa child. 
+Widget tree digunakan untuk menyusun tampilan aplikasi yang dibangun menggunakan Flutter. Widget adalah elemen visual berupa teks, tombol, icon, layout, dsb. Suatu widget dapat menjadi parent yang memiliki beberapa child. 
 
 Contoh dalam kode saya:
 
@@ -123,3 +121,31 @@ Berdasarkan hal tersebut, `MaterialApp` sering digunakan sebagai widget root kar
 |------|------|------|
 | `StatelessWidget` | Widget yang tidak memiliki state (keadaan tertentu). | Ketika tampilan tidak perlu pembaharuan selama user berinteraksi dengan material yang ada di dalam halaman atau hanya menampilkan data statis. |
 | `StatefulWidget` | Widget yang memiliki state, bisa berubah selama aplikasi berjalan. | Ada perubahan pada halaman, misalnya ketika user input data dengan form dan halaman perlu diperbaharui setelahnya untuk menampilkan hasilnya. |
+
+## Apa itu `BuildContext` dan mengapa pending? Bagaimana penggunaannya di method `build()`?
+
+`BuildContext` adalah onjek yang merepresentasikan lokasi dari sebuah widget di dalam widget tree.
+Flutter menggunakan objek tersebut untuk:
+- Menemukan _parent widget_ yang ada di atasnya, misalnya saat memanggil `Theme.of(context)` atau `ScaffoldMessenger.of(context)`.
+- Mengatur hierarki tampilan dan mengakses elemen-elemen yang terkait dengan posisi widget tersebut.
+
+Di dalam method `build()`, `BuildContext` digunakan sebagai parameter agar widget dapat: 
+- mengambil tema dan style dari _parent widget_,
+- menampilkan `SnackBar` menggunakan `ScaffoldMessenger.of(context)`,
+- atau menavigasi ke halaman lain.
+
+Contoh di dalam kode saya:
+
+```menu.dart
+ScaffoldMessenger.of(context).showSnackBar(
+  SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!")),
+);
+```
+Di sini, `context` memberi tahu Flutter bahwa `SnackBar` harus muncul di `Scaffold` yang membungkus halaman ini.
+
+## Konsep _Hot Reload_ dan Bedanya dengan _Hot Restart_
+
+| Konsep | What | When | 
+|--------|------|------|
+| *Hot Reload* | Melakukan perubahan kode ke aplikasi yang sedang berjalan tanpa mengulang/reset state | Saat hanya mengubah style seperti warna, teks, atau layout. |
+| *Hot Restart* | Memulai ulang keseluruhan aplikasi dari awal dengan reset state | Saat mengubah struktur widget, variable global, atau `main()`. |  
