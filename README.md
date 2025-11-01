@@ -15,22 +15,12 @@ Contoh dalam kode saya:
 Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
-      title: const Text(
-        'GoalGear Mobile',
-        style: TextStyle(
-          color: Colors.white, 
-          fontWeight: FontWeight.bold
-        ),
-      ),
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      ...
     ),
     body: Padding(
-      padding: const EdgeInsets.all(16.0),
+      ...
       child: GridView.count(
-        crossAxisCount: 3,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        shrinkWrap: true,
+        ...
         children: items.map((item) => ItemCard(item)).toList(),
       ),
     ),
@@ -38,8 +28,32 @@ Widget build(BuildContext context) {
 }
 ```
 
-```
-
+```main.dart
+Widget build(BuildContext context) {
+  return Material(
+    ...
+    child: InkWell(
+      ...
+      },
+      child: Container(
+        ...
+        child: Center(
+          child: Column(
+            ...
+            children: [
+              Icon(
+                ...
+              ),
+              Text(
+                ...
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
 ```
 
 `Scaffold` adalah parent dari `AppBar` dan `body`.
