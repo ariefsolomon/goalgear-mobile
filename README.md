@@ -11,7 +11,6 @@ Widget adalah elemen visual berupa teks, tombol, icon, layout, dsb. Suatu widget
 Contoh dalam kode saya:
 
 ```menu.dart
-// menu.dart
 Widget build(BuildContext context) {
   return Scaffold(
 	appBar: AppBar(
@@ -82,7 +81,7 @@ Ketika parent berubah, widget anak di bawahnya bisa ikut diperbarui atau dirende
 
 ## Apa fungsi dari widget `MaterialApp`? Mengapa widget ini sering digunakan sebagai widget root?
 
-`MaterialApp` adalah widget wrapper utama yang menyediakan konfigurasi dasar dari keseluruhan tampilan aplikasi. Jadi, semua halaman, navigasi, tema, dan elemen UI lainnya berada di bawah `MaterialApp`.
+`MaterialApp` adalah widget wrapper utama yang menyediakan konfigurasi dasar dari keseluruhan tampilan aplikasi Flutter yang berbasis _Material Design_. Jadi, semua halaman, navigasi, tema, dan elemen UI lainnya berada di bawah `MaterialApp`.
 
 ```main.dart
 class MyApp extends StatelessWidget {
@@ -105,10 +104,15 @@ class MyApp extends StatelessWidget {
 ```
 
 Widget ini mengatur banyak hal, seperti:
-- `title`: judul aplikasi
+- `title` mengatur judul aplikasi
 - `theme` dan `ThemeData` mengatur hal-hal seperti:
 	- `primarySwatch: Colors.blue` mengatur warna utama aplikasi (AppBar, tombol utama, dsb). 
 	- `.copyWith(secondary: Colors.greenAccent[400])` untuk menambahkan warna sekunder.
 	- `useMaterial3` diatur `true` untuk mengaktifkan Material Design 3 (MD3), versi desain modern dari Google.
 - `home` mengatur halaman utama di dengan kelas `MyHomePage`.
 - `routes` dipakai saat aplikasi memiliki beberapa halaman untuk mengatur rute masing-masing.
+
+`MaterialApp` sering digunakan sebagai widget root karena: 
+1. Menjadi titik utama dari struktur aplikasi material based.
+2. Menjamin semua widget turunan dapat menggunakan tema dan komponen.
+3. Menjaga konsistensi tampilan di seluruh widget dan halaman.
