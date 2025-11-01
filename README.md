@@ -10,7 +10,7 @@ Widget adalah elemen visual berupa teks, tombol, icon, layout, dsb. Suatu widget
 
 Contoh dalam kode saya:
 
-```
+```menu.dart
 Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
