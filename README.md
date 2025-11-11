@@ -1,5 +1,122 @@
 # GoalGear Mobile
 
+# Tugas 8 | Flutter Navigation, Layouts, Forms, and Input Elements
+
+## Perbedaan antara `Navigator.push()` dan `Navigator.pushReplacement()`
+
+Kedua method ini digunakan untuk melakukan navigasi antar halaman di Flutter, tapi memiliki perilaku yang berbeda dalam mengelola stack halaman.
+
+| Method | Fungsi | Kapan digunakan |
+| ------ | ------ | --------------- |
+| `Navigator.push()` | Menambahkan halaman baru di atas halaman yang sedang aktif tanpa menghapus halaman sebelumnya dari stack. | Saat user perlu bisa kembali ke halaman sebelumnya dengan tombol **Back**. |
+| `Navigator.pushReplacement()` | Mengganti halaman aktif dengan halaman baru, sekaligus menghapus halaman sebelumnya dari stack. | Saat user berpindah antar halaman utama yang tidak perlu bisa kembali, seperti lewat menu Drawer. |
+
+Contoh dalam kode saya:
+
+```dart
+Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => const ProductFormPage()),
+);
+```
+
+Sedangkan pada `LeftDrawer`:
+
+```dart
+Navigator.pushReplacement(
+  context,
+  MaterialPageRoute(builder: (context) => const MyHomePage()),
+);
+```
+
+Dengan begitu, user bisa kembali ke halaman utama jika masuk lewat tombol, tapi tidak menumpuk halaman saat berpindah melalui drawer.
+
+## Hierarki widget: `Scaffold`, `AppBar`, dan `Drawer`
+
+Ketiga widget ini berperan penting dalam menjaga konsistensi struktur tampilan di seluruh aplikasi.
+
+* `Scaffold` berfungsi sebagai **kerangka utama halaman**, tempat di mana komponen seperti `AppBar`, `Drawer`, dan `body` diletakkan.
+* `AppBar` menampilkan **judul aplikasi "GoalGear Mobile"** di bagian atas halaman.
+* `Drawer` menyediakan **navigasi antar halaman utama** seperti *Home* dan *Tambah Produk*.
+
+Contoh di kode saya (`menu.dart`):
+
+```dart
+return Scaffold(
+  appBar: AppBar(
+    title: const Text(
+      'GoalGear Mobile',
+      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+    ),
+    backgroundColor: Theme.of(context).colorScheme.primary,
+  ),
+  drawer: const LeftDrawer(),
+  body: Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: GridView.count(
+      crossAxisCount: 3,
+      children: items.map((item) => ItemCard(item)).toList(),
+    ),
+  ),
+);
+```
+
+Struktur ini membuat tampilan aplikasi seragam di setiap halaman. `Scaffold` memastikan semua halaman memiliki AppBar dan Drawer dengan gaya yang sama.
+
+## Kelebihan layout widget seperti `Padding`, `SingleChildScrollView`, dan `ListView`
+
+Ketiga layout widget ini membantu menjaga tampilan form agar nyaman digunakan di berbagai ukuran layar.
+
+| Widget | Fungsi | Contoh penggunaan |
+| -------| ------ | ----------------- |
+| `Padding` | Menambahkan jarak antar elemen agar tidak terlalu rapat. | Mengapit `Form` agar input field tidak menempel pada tepi layar. |
+| `SingleChildScrollView` | Membuat seluruh halaman bisa di-scroll. Berguna untuk form panjang agar tidak terpotong di layar kecil. | Membungkus semua field di halaman form tambah produk. |
+| `ListView` | Menampilkan daftar elemen dalam bentuk list atau grid yang bisa di-scroll otomatis. | Digunakan untuk menampilkan kumpulan tombol pada halaman utama (`GridView.count`). |
+
+Contoh di kode saya (`product_form.dart`):
+
+```dart
+return Scaffold(
+  appBar: AppBar(title: const Text("Add New Product")),
+  drawer: const LeftDrawer(),
+  body: SingleChildScrollView(
+    child: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            TextFormField(...),
+            TextFormField(...),
+            DropdownButtonFormField(...),
+            SwitchListTile(...),
+            ElevatedButton(...),
+          ],
+        ),
+      ),
+    ),
+  ),
+);
+```
+
+## Penyesuaian warna tema aplikasi
+
+Tema aplikasi saya diatur dalam `main.dart` menggunakan `ThemeData` dan `ColorScheme` agar tampilan tetap konsisten di seluruh halaman.
+
+```dart
+theme: ThemeData(
+  colorScheme: ColorScheme.fromSwatch(
+    primarySwatch: Colors.blue,
+  ).copyWith(secondary: Colors.greenAccent[400]),
+  useMaterial3: true,
+),
+```
+Penjelasan:
+
+* `primarySwatch: Colors.blue` → warna utama aplikasi, digunakan pada AppBar dan ikon.
+* `.copyWith(secondary: Colors.greenAccent[400])` → menambahkan warna sekunder untuk elemen pendukung seperti tombol atau highlight.
+* `useMaterial3: true` → mengaktifkan Material Design 3.
+
 # Tugas 7 | Basic Flutter
 
 ## Apa itu widget tree pada Flutter? Bagaimana hubungan parent-child antar widget?
@@ -8,7 +125,7 @@ Widget tree digunakan untuk menyusun tampilan aplikasi yang dibangun menggunakan
 
 Contoh dalam kode saya:
 
-```menu.dart
+```dart
 Widget build(BuildContext context) {
   return Scaffold(
 	appBar: AppBar(
@@ -25,7 +142,7 @@ Widget build(BuildContext context) {
 }
 ```
 
-```main.dart
+```dart
 Widget build(BuildContext context) {
   return Material(
 	...
@@ -122,7 +239,7 @@ Berdasarkan hal tersebut, `MaterialApp` sering digunakan sebagai widget root kar
 | `StatelessWidget` | Widget yang tidak memiliki state (keadaan tertentu). | Ketika tampilan tidak perlu pembaharuan selama user berinteraksi dengan material yang ada di dalam halaman atau hanya menampilkan data statis. |
 | `StatefulWidget` | Widget yang memiliki state, bisa berubah selama aplikasi berjalan. | Ada perubahan pada halaman, misalnya ketika user input data dengan form dan halaman perlu diperbaharui setelahnya untuk menampilkan hasilnya. |
 
-## Apa itu `BuildContext` dan mengapa pending? Bagaimana penggunaannya di method `build()`?
+## Apa itu `BuildContext` dan mengapa pending? Bagaimana userannya di method `build()`?
 
 `BuildContext` adalah onjek yang merepresentasikan lokasi dari sebuah widget di dalam widget tree.
 Flutter menggunakan objek tersebut untuk:
