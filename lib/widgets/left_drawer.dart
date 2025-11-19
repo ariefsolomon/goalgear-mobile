@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:goalgear_mobile/screens/menu.dart';
 import 'package:goalgear_mobile/screens/product_form.dart';
+import 'package:provider/provider.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:goalgear_mobile/screens/login.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -47,6 +50,33 @@ class LeftDrawer extends StatelessWidget {
                   builder: (context) => const ProductFormPage(),
                 ),
               );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
+            onTap: () async {
+              final request = context.read<CookieRequest>();
+              final response = await request.logout(
+                "http://localhost:8000/auth/logout/",
+              );
+
+              if (!context.mounted) return;
+
+              if (response['status'] == true) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text(response['message'])));
+
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) => const LoginPage()),
+                );
+              } else {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(const SnackBar(content: Text("Logout gagal.")));
+              }
             },
           ),
         ],
