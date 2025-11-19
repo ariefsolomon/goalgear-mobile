@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:goalgear_mobile/screens/product_form.dart';
+import 'package:goalgear_mobile/screens/product_list.dart';
 
 // Card untuk Model Tombol
 class ItemCard extends StatelessWidget {
@@ -28,6 +29,16 @@ class ItemCard extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const ProductFormPage()),
+            );
+          } else if (item.name == "All Products") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ItemListPage()),
+            );
+          } else if (item.name == "My Products") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ItemListPage(onlyMine: true)),
             );
           }
         },

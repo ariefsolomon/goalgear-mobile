@@ -24,11 +24,6 @@ class LeftDrawer extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8),
-                Text(
-                  'Semua produk sepak bola favoritmu!',
-                  style: TextStyle(color: Colors.white, fontSize: 15),
-                  textAlign: TextAlign.center,
-                ),
               ],
             ),
           ),
